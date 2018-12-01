@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars - Express</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+        <a href="/"><img style="display: block; margin: 0 auto 5% auto; height:50%; width:50%" src="https://res.cloudinary.com/teepublic/image/private/s--kN8kgy_c--/t_Resized%20Artwork/c_fit,g_north_west,h_954,w_954/co_36538b,e_outline:48/co_36538b,e_outline:inner_fill:48/co_ffffff,e_outline:48/co_ffffff,e_outline:inner_fill:48/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1458751508/production/designs/455693_1.jpg"></a>
+      <h3 style="text-align:center">The Best Pizza in Mushroom Kingdom!...with or without mushrooms!</h3>
+      <hr>
+      <a href="/add">
+        <button class="btn btn-danger btn-lg">
+          <span class="fa fa-plus"></span>Make Reservation</button>
+      </a>
+      <a href="/" style="float:right">
+        <button class="btn btn-danger btn-lg">
+          <span class="fa"></span>View Reservations</button>
+      </a>
+    </div>
+    <div class="row">
+
+      <div class="col-12">
+
+
+
+        <div class="card">
+          <div class="card-header">
+            <h3>
+              <strong>Current Reservations</strong>
+            </h3>
+          </div>
+          <div class="card-body">
+            <div id="reservationsField">
+
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">
+
+            <h3>
+              <strong>Wait List</strong>
+            </h3>
+          </div>
+          <div class="card-body">
+            <div id="waitField">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <a href="/api/res">API Table Link</a>
+    <span> | </span>
+    <a href="/api/wait">API Wait List</a>
+
+    <script type="text/javascript">
+
+      $.get("/api/res/", function (data) {
+        console.log(data);
+        for (i in data) {
+          var newRow = $("<div class='custField'>").append(
+            $("<p>").text("Customer ID: " + data[i].id),
+            $("<p>").text("Name: " + data[i].name),
+            $("<p>").text("Email: " + data[i].email),
+            $("<p>").text("Phone: " + data[i].phone),
+            $("<hr>")
+
+          );
+
+          // Append the new row to the table
+          $("#reservationsField").append(newRow);
+        }
+
+      });
+      $.get("/api/wait/", function (data) {
+        console.log(data);
+        if (data) {
+          for (i in data) {
+            var newRow = $("<div class='custField'>").append(
+              $("<p>").text("Customer ID: " + data[i].id),
+              $("<p>").text("Name: " + data[i].name),
+              $("<p>").text("Email: " + data[i].email),
+              $("<p>").text("Phone: " + data[i].phone),
+              $("<hr>")
+
+            );
+
+            // Append the new row to the table
+            $("#waitField").append(newRow);
+          }
+        }
+      });
+    </script>
+</body>
+
+</html>
