@@ -26,6 +26,7 @@ var waitList = [
 }
 ];
 
+//ROUTING
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "home.html"));
 });
@@ -46,10 +47,9 @@ app.get("/api/res", function(req, res) {
   
    return res.json(reservations);
 });
+
 //Create new reservation
 app.post("/api/reservations", function(req, res) {
-  // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware]
 
   var newRes = req.body;
 
